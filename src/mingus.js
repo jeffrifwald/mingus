@@ -7,6 +7,9 @@ import {clearStubs, initTests, stub} from './helpers';
 export class TestCase {
     constructor() {
         this.stubs = [];
+    }
+
+    run() {
         initTests(this);
     }
 
@@ -151,4 +154,8 @@ export class TestCase {
     stub(...args) {
         return stub(this, ...args);
     }
+}
+
+export function runTestCase(testCase) {
+    (new testCase()).run();
 }

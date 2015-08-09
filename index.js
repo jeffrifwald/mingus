@@ -1,3 +1,1 @@
-import {TestCase} from './src/mingus';
-
-export TestCase;
+export {runTestCase, TestCase} from './src/mingus';

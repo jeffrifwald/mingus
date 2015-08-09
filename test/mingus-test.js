@@ -1,7 +1,7 @@
 import React from 'react';
 
 import {EmptyList, LargeList, SmallList} from './Components';
-import {TestCase} from '../src/mingus';
+import {runTestCase, TestCase} from '../src/mingus';
 
 
 class MingusTest extends TestCase {
@@ -154,4 +154,4 @@ class MingusTest extends TestCase {
     }
 }
 
-new MingusTest();
+runTestCase(MingusTest);
