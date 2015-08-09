@@ -1,0 +1,38 @@
+#!/usr/bin/env node
+
+var path = require('path');
+var child_process = require('child_process');
+
+
+var execPath, args, proc;
+
+if (process.argv[2] === 'cover') {
+    execPath = path.join(__dirname, '../node_modules/.bin/babel-node');
+    args = [].concat([
+        path.join(__dirname, '../node_modules/.bin/babel-istanbul'),
+        'cover',
+        path.join(__dirname, '../node_modules/.bin/_mocha')
+    ], process.argv.slice(3));
+} else if (process.argv[2] === 'check-coverage') {
+    execPath = path.join(__dirname, '../node_modules/.bin/babel-istanbul');
+    args = [].concat([
+        'check-coverage'
+    ], process.argv.slice(3));
+}
+
+if (execPath && args) {
+    proc = child_process.spawn(execPath, args, {stdio: 'inherit'});
+    proc.on('exit', function (code, signal) {
+        process.on('exit', function() {
+            if (signal) {
+                process.kill(process.pid, signal);
+            } else {
+                process.exit(code);
+            }
+        });
+    });
+    process.on('SIGINT', function () {
+        proc.kill('SIGINT');
+        proc.kill('SIGTERM');
+    });
+}
