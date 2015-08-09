@@ -16,7 +16,7 @@ npm install git://github.com/jmcriffey/mingus.git
 
 ## Usage
 
-CoolComponent.js:
+src/CoolComponent.js:
 ```js
 import React from 'react';
 import someLib from 'someLib';
@@ -40,7 +40,7 @@ class CoolComponent extends React.Component {
 export default CoolComponent;
 ```
 
-test.js:
+tests/CoolComponent-test.js:
 ```js
 import {TestCase} from 'mingus';
 import someLib from 'someLib';
@@ -91,7 +91,7 @@ new CoolComponentTest();
 
 On the command line:
 ```shell
-mingus test.js
+mingus cover && mingus check-coverage
 ```
 
 ## License
