@@ -1,6 +1,6 @@
 # mingus
 
-`mingus` is a testing library for React components. It uses mocha, sinon, and chai.
+`mingus` is a testing library for React components using mocha, sinon, and chai.
 
 ## Install
 

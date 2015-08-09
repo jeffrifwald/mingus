@@ -13,7 +13,8 @@
     "test",
     "unit",
     "unit test",
-    "react"
+    "react",
+    "testing"
   ],
   "author": "Jeff McRiffey",
   "license": "MIT",
