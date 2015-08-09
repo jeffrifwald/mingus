@@ -116,9 +116,13 @@ export class TestCase {
     }
 
     // React helpers
-    createComponent(component) {
+    createComponent(component, props) {
         const Component = component;
-        const cls = Component.type ? Component : (<Component />);
+        const cls = (
+            Component.type ?
+            Component :
+            React.createElement(Component, props)
+        );
 
         return new cls.type(
             cls.props,
@@ -146,8 +150,8 @@ export class TestCase {
         return component.type === type;
     }
 
-    renderComponent(cls) {
-        return this.createComponent(cls).render();
+    renderComponent(...args) {
+        return this.createComponent(...args).render();
     }
 
     // Mock helpers

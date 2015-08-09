@@ -1,15 +1,17 @@
 {
   "name": "mingus",
-  "version": "0.0.4",
+  "version": "0.0.5",
   "description": "A testing library for React.",
   "main": "index.js",
   "bin": {
     "mingus": "bin/mingus"
   },
   "scripts": {
+    "build": "babel src --out-dir lib",
     "check-coverage": "./bin/mingus check-coverage .coverage/coverage.json",
     "cover": "./bin/mingus cover",
     "lint": "eslint src test",
+    "prepublish": "npm run build",
     "test": "npm run lint && npm run cover && npm run check-coverage"
   },
   "keywords": [

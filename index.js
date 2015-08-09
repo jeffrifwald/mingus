@@ -1,1 +1,4 @@
-export {runTestCase, TestCase} from './src/mingus';
+var mingus = require('./lib/mingus');
+
+
+module.exports = mingus;
