@@ -1,4 +1,5 @@
 import chai from 'chai';
+import React from 'react';
 
 import {clearStubs, initTests, stub} from './helpers';
 
@@ -112,10 +113,11 @@ export class TestCase {
     }
 
     // React helpers
-    createComponent(cls) {
-        const Component = cls.type;
+    createComponent(component) {
+        const Component = component;
+        const cls = Component.type ? Component : (<Component />);
 
-        return new Component(
+        return new cls.type(
             cls.props,
             cls._context //eslint-disable-line
         );

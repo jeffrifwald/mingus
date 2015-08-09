@@ -145,6 +145,13 @@ class MingusTest extends TestCase {
     testStubReset() {
         this.assertEqual(this.component.getName(), 'Large');
     }
+
+    testCreateComponent() {
+        this.assertDeepEqual(
+            this.createComponent(LargeList),
+            this.createComponent(<LargeList />)
+        );
+    }
 }
 
 new MingusTest();

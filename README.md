@@ -15,11 +15,11 @@ npm install git://github.com/jmcriffey/mingus.git
 ```
 
 ## Usage
+
+CoolComponent.js:
 ```js
-import {TestCase} from 'mingus';
 import React from 'react';
 import someLib from 'someLib';
-
 
 class CoolComponent extends React.Component {
     render() {
@@ -36,10 +36,21 @@ class CoolComponent extends React.Component {
     }
 }
 
+export default CoolComponent;
+```
+
+test.js:
+```js
+import {TestCase} from 'mingus';
+import someLib from 'someLib';
+
+import CoolComponent from './CoolComponent';
+
+
 class CoolComponentTest extends TestCase {
     beforeEach() {
-        this.rendered = this.renderComponent(<CoolComponent />);
-        this.component = this.createComponent(<CoolComponent />);
+        this.rendered = this.renderComponent(CoolComponent);
+        this.component = this.createComponent(CoolComponent);
     }
 
     testType() {
@@ -75,6 +86,11 @@ class CoolComponentTest extends TestCase {
 }
 
 new CoolComponentTest();
+```
+
+On the command line:
+```shell
+mingus test.js
 ```
 
 ## License
