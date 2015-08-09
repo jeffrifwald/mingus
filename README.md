@@ -21,6 +21,7 @@ CoolComponent.js:
 import React from 'react';
 import someLib from 'someLib';
 
+
 class CoolComponent extends React.Component {
     render() {
         return (
