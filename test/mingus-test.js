@@ -90,6 +90,10 @@ Mingus.createTestCase('createTestCaseTest', {
         this.assertNthChildIsType(this.rendered, 0, 'li');
     },
 
+    testAssertNumChildren() {
+        this.assertNumChildren(this.rendered, 3);
+    },
+
     testAssertNumChildrenWithClass() {
         this.assertNumChildrenWithClass(this.rendered, 3, 'large-list-item');
     },

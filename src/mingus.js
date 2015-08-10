@@ -65,6 +65,10 @@ export class TestCase {
         return this.assertTrue(this.isType(child, type));
     }
 
+    assertNumChildren(component, num) {
+        return this.getChildren(component).length === num;
+    }
+
     assertNumChildrenOfType(component, num, type) {
         const numChildrenOfType = this.getChildren(component).filter(
             (child) => this.isType(child, type)
