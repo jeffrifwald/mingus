@@ -37,7 +37,11 @@ export function addIt(testCase) {
 }
 
 export function clearStubs(testCase) {
-    testCase.stubs.forEach((stub) => stub.restore());
+    testCase.stubs.forEach((stub) => {
+        if (stub.restore && typeof stub.restore === 'function') {
+            stub.restore()
+        }
+    });
     testCase.stubs = [];
 }
 

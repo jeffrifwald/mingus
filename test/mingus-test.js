@@ -149,6 +149,13 @@ Mingus.createTestCase('createTestCaseTest', {
         this.assertEqual(this.component.getName(), 'Large');
     },
 
+    testOrphanStub() {
+        const stub = this.stub();
+
+        stub();
+        this.assertEqual(stub.callCount, 1);
+    },
+
     testCreateComponent() {
         this.assertDeepEqual(
             this.createComponent(LargeList),
