@@ -1,16 +1,15 @@
 import chai from 'chai';
 import React from 'react';
 
-import {clearStubs, initTests, stub} from './helpers';
+import {getHooks, clearStubs, initTests, stub} from './helpers';
 
 
 export class TestCase {
-    constructor() {
+    constructor(name={}, config={}) {
         this.stubs = [];
-    }
-
-    run() {
-        initTests(this);
+        this.name = name;
+        this.config = config;
+        this.hooks = getHooks(this);
     }
 
     // Assertion methods
@@ -100,19 +99,20 @@ export class TestCase {
 
     // Mocha hooks
     after() {
-
+        this.hooks.after();
     }
 
     afterEach() {
+        this.hooks.afterEach();
         clearStubs(this);
     }
 
     before() {
-
+        this.hooks.before();
     }
 
     beforeEach() {
-
+        this.hooks.beforeEach();
     }
 
     // React helpers
@@ -160,6 +160,8 @@ export class TestCase {
     }
 }
 
-export function runTestCase(testCase) {
-    (new testCase()).run();
+export default {
+    createTestCase(name, config) {
+        initTests(new TestCase(name, config));
+    }
 }

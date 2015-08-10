@@ -7,14 +7,14 @@ var child_process = require('child_process');
 var execPath, args, proc;
 
 if (process.argv[2] === 'cover') {
-    execPath = path.join(__dirname, '../node_modules/.bin/babel-node');
+    execPath = require.resolve('babel/bin/babel-node');
     args = [].concat([
-        path.join(__dirname, '../node_modules/.bin/babel-istanbul'),
+        require.resolve('babel-istanbul/lib/cli'),
         'cover',
-        path.join(__dirname, '../node_modules/.bin/_mocha')
+        require.resolve('mocha/bin/_mocha')
     ], process.argv.slice(3));
 } else if (process.argv[2] === 'check-coverage') {
-    execPath = path.join(__dirname, '../node_modules/.bin/babel-istanbul');
+    execPath = require.resolve('babel-istanbul/lib/cli');
     args = [].concat([
         'check-coverage'
     ], process.argv.slice(3));

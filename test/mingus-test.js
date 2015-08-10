@@ -1,15 +1,14 @@
 import React from 'react';
 
 import {EmptyList, LargeList, SmallList} from './Components';
-import {runTestCase, TestCase} from '../src/mingus';
+import Mingus from '../src/mingus';
 
 
-class MingusTest extends TestCase {
+Mingus.createTestCase('createTestCaseTest', {
     before() {
-        super.before();
         this.component = this.createComponent(<LargeList />);
         this.rendered = this.renderComponent(<LargeList />);
-    }
+    },
 
     testAssertDeepEqual() {
         let caught = false;
@@ -23,7 +22,7 @@ class MingusTest extends TestCase {
         }
 
         this.assertTrue(caught);
-    }
+    },
 
     testAssertEqual() {
         let caught = false;
@@ -37,7 +36,7 @@ class MingusTest extends TestCase {
         }
 
         this.assertTrue(caught);
-    }
+    },
 
     testAssertTrue() {
         let caught = false;
@@ -51,7 +50,7 @@ class MingusTest extends TestCase {
         }
 
         this.assertTrue(caught);
-    }
+    },
 
     testAssertFalse() {
         let caught = false;
@@ -65,60 +64,60 @@ class MingusTest extends TestCase {
         }
 
         this.assertTrue(caught);
-    }
+    },
 
     testAssertHasClass() {
         this.assertHasClass(this.rendered, 'large-list');
-    }
+    },
 
     testAssertIsType() {
         this.assertIsType(this.rendered, 'ul');
-    }
+    },
 
     testAssertEveryChildHasClass() {
         this.assertEveryChildHasClass(this.rendered, 'large-list-item');
-    }
+    },
 
     testAssertEveryChildIsType() {
         this.assertEveryChildIsType(this.rendered, 'li');
-    }
+    },
 
     testAssertNthChildHasClass() {
         this.assertNthChildHasClass(this.rendered, 0, 'large-list-item');
-    }
+    },
 
     testAssertNthChildIsType() {
         this.assertNthChildIsType(this.rendered, 0, 'li');
-    }
+    },
 
     testAssertNumChildrenWithClass() {
         this.assertNumChildrenWithClass(this.rendered, 3, 'large-list-item');
-    }
+    },
 
     testAssertNumChildrenOfType() {
         this.assertNumChildrenOfType(this.rendered, 3, 'li');
-    }
+    },
 
     testAssertSomeChildHasClass() {
         this.assertSomeChildHasClass(this.rendered, 'large-list-item');
-    }
+    },
 
     testAssertSomeChildIsType() {
         this.assertSomeChildIsType(this.rendered, 'li');
-    }
+    },
 
     testGetChildren() {
         this.assertDeepEqual(
             this.getChildren(this.rendered),
             this.rendered.props.children
         );
-    }
+    },
 
     testGetChildrenNoChildren() {
         const rendered = this.renderComponent(<EmptyList />);
 
         this.assertDeepEqual(this.getChildren(rendered), []);
-    }
+    },
 
     testGetChildrenOneChild() {
         const rendered = this.renderComponent(<SmallList />);
@@ -127,24 +126,24 @@ class MingusTest extends TestCase {
             this.getChildren(rendered),
             [rendered.props.children]
         );
-    }
+    },
 
     testHasClass() {
         this.assertTrue(this.hasClass(this.rendered, 'large-list'));
-    }
+    },
 
     testIsType() {
         this.assertTrue(this.isType(this.rendered, 'ul'));
-    }
+    },
 
     testStub() {
         this.stub(this.component, 'getName', () => 'Cool');
         this.assertEqual(this.component.getName(), 'Cool');
-    }
+    },
 
     testStubReset() {
         this.assertEqual(this.component.getName(), 'Large');
-    }
+    },
 
     testCreateComponent() {
         this.assertDeepEqual(
@@ -152,6 +151,7 @@ class MingusTest extends TestCase {
             this.createComponent(<LargeList />)
         );
     }
-}
+});
 
-runTestCase(MingusTest);
+// Make sure things don't break when creating with an empty config
+Mingus.createTestCase();

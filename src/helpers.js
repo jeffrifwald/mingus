@@ -19,7 +19,7 @@ export function addBeforeEach(testCase) {
 }
 
 export function addDescribe(testCase) {
-    mocha.describe(testCase.constructor.name, () => {
+    mocha.describe(testCase.name, () => {
         addAfter(testCase);
         addAfterEach(testCase);
         addBefore(testCase);
@@ -29,10 +29,10 @@ export function addDescribe(testCase) {
 }
 
 export function addIt(testCase) {
-    Object.getOwnPropertyNames(Object.getPrototypeOf(testCase)).filter(
-        (key) => isTestMethod(key, testCase)
+    Object.keys(testCase.config).filter(
+        (key) => isTestMethod(key, testCase.config)
     ).forEach(
-        (key) => mocha.it(key, testCase[key].bind(testCase))
+        (key) => mocha.it(key, testCase.config[key].bind(testCase))
     );
 }
 
@@ -41,12 +41,29 @@ export function clearStubs(testCase) {
     testCase.stubs = [];
 }
 
+export function getHooks(testCase) {
+    return {
+        after: maybeFn(testCase.config.after).bind(testCase),
+        afterEach: maybeFn(testCase.config.afterEach).bind(testCase),
+        before: maybeFn(testCase.config.before).bind(testCase),
+        beforeEach: maybeFn(testCase.config.beforeEach).bind(testCase)
+    };
+}
+
 export function initTests(testCase) {
     addDescribe(testCase);
 }
 
 export function isTestMethod(key, testCase) {
     return key.slice(0, 4) === 'test' && typeof testCase[key] === 'function';
+}
+
+export function maybeFn(fn) {
+    return fn && typeof fn === 'function' ? fn : noop;
+}
+
+export function noop() {
+
 }
 
 export function stub(testCase, ...args) {
