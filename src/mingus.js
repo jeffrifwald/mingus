@@ -29,6 +29,14 @@ export class TestCase {
         return chai.assert.isFalse(...args);
     }
 
+    assertNotNull(...args) {
+        return chai.assert.isNotNull(...args);
+    }
+
+    assertNull(...args) {
+        return chai.assert.isNull(...args);
+    }
+
     assertHasClass(component, cls) {
         return this.assertTrue(this.hasClass(component, cls));
     }

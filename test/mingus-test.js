@@ -66,6 +66,34 @@ Mingus.createTestCase('createTestCaseTest', {
         this.assertTrue(caught);
     },
 
+    testAssertNotNull() {
+        let caught = false;
+
+        this.assertNotNull(1);
+
+        try {
+            this.assertNotNull(null);
+        } catch(err) {
+            caught = true;
+        }
+
+        this.assertTrue(caught);
+    },
+
+    testAssertNull() {
+        let caught = false;
+
+        this.assertNull(null);
+
+        try {
+            this.assertNull(1);
+        } catch(err) {
+            caught = true;
+        }
+
+        this.assertTrue(caught);
+    },
+
     testAssertHasClass() {
         this.assertHasClass(this.rendered, 'large-list');
     },
