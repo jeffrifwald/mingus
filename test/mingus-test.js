@@ -94,6 +94,10 @@ Mingus.createTestCase('createTestCaseTest', {
         this.assertTrue(caught);
     },
 
+    testAssertTypeOf() {
+        this.assertTypeOf('', 'string');
+    },
+
     testAssertHasClass() {
         this.assertHasClass(this.rendered, 'large-list');
     },
