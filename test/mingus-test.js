@@ -95,7 +95,31 @@ Mingus.createTestCase('createTestCaseTest', {
     },
 
     testAssertTypeOf() {
+        let caught = false;
+
         this.assertTypeOf('', 'string');
+
+        try {
+            this.assertTypeOf('', 'number');
+        } catch(err) {
+            caught = true;
+        }
+
+        this.assertTrue(caught);
+    },
+
+    testAssertUndefined() {
+        let caught = false;
+
+        this.assertUndefined(undefined);
+
+        try {
+            this.assertUndefined(null);
+        } catch(err) {
+            caught = true;
+        }
+
+        this.assertTrue(caught);
     },
 
     testAssertHasClass() {

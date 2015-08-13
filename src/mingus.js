@@ -41,6 +41,10 @@ export class TestCase {
         return chai.assert.typeOf(...args);
     }
 
+    assertUndefined(...args) {
+        return chai.assert.isUndefined(...args);
+    }
+
     assertHasClass(component, cls) {
         return this.assertTrue(this.hasClass(component, cls));
     }
