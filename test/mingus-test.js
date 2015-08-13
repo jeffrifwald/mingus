@@ -196,9 +196,34 @@ Mingus.createTestCase('createTestCaseTest', {
         this.assertTrue(this.isType(this.rendered, 'ul'));
     },
 
+    testSpy() {
+        this.spy(this.component, 'getName');
+        this.assertEqual(this.component.getName(), 'Large');
+        this.assertEqual(this.component.getNameCalled, 1);
+        this.assertEqual(this.component.getName.callCount, 1);
+
+        this.component.getNameCalled = 0;
+    },
+
+    testSpyReset() {
+        this.assertEqual(this.component.getName(), 'Large');
+        this.assertEqual(this.component.getNameCalled, 1);
+        this.assertUndefined(this.component.getName.callCount);
+
+        this.component.getNameCalled = 0;
+    },
+
+    testOrphanSpy() {
+        const spy = this.spy();
+
+        spy();
+        this.assertEqual(spy.callCount, 1);
+    },
+
     testStub() {
         this.stub(this.component, 'getName', () => 'Cool');
         this.assertEqual(this.component.getName(), 'Cool');
+        this.assertEqual(this.component.getNameCalled, 0);
     },
 
     testStubReset() {

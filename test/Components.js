@@ -2,6 +2,12 @@ import React from 'react';
 
 
 export class EmptyList extends React.Component {
+    constructor(...args) {
+        super(...args);
+
+        this.getNameCalled = 0;
+    }
+
     render() {
         return (
             <ul className="empty-list">
@@ -10,11 +16,19 @@ export class EmptyList extends React.Component {
     }
 
     getName() {
+        this.getNameCalled += 1;
+
         return 'Empty';
     }
 }
 
 export class LargeList extends React.Component {
+    constructor(...args) {
+        super(...args);
+
+        this.getNameCalled = 0;
+    }
+
     render() {
         return (
             <ul className="large-list">
@@ -26,11 +40,19 @@ export class LargeList extends React.Component {
     }
 
     getName() {
+        this.getNameCalled += 1;
+
         return 'Large';
     }
 }
 
 export class SmallList extends React.Component {
+    constructor(...args) {
+        super(...args);
+
+        this.getNameCalled = 0;
+    }
+
     render() {
         return (
             <ul className="small-list">
@@ -40,6 +62,8 @@ export class SmallList extends React.Component {
     }
 
     getName() {
+        this.getNameCalled += 1;
+
         return 'Small';
     }
 }

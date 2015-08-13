@@ -1,11 +1,19 @@
 import chai from 'chai';
 import React from 'react';
 
-import {getHooks, clearStubs, initTests, stub} from './helpers';
+import {
+    getHooks,
+    clearSpies,
+    clearStubs,
+    initTests,
+    spy,
+    stub
+} from './helpers';
 
 
 export class TestCase {
     constructor(name={}, config={}) {
+        this.spies = [];
         this.stubs = [];
         this.name = name;
         this.config = config;
@@ -124,6 +132,7 @@ export class TestCase {
 
     afterEach() {
         this.hooks.afterEach();
+        clearSpies(this);
         clearStubs(this);
     }
 
@@ -175,6 +184,10 @@ export class TestCase {
     }
 
     // Mock helpers
+    spy(...args) {
+        return spy(this, ...args);
+    }
+
     stub(...args) {
         return stub(this, ...args);
     }

@@ -45,6 +45,15 @@ export function clearStubs(testCase) {
     testCase.stubs = [];
 }
 
+export function clearSpies(testCase) {
+    testCase.spies.forEach((spy) => {
+        if (spy.restore && typeof spy.restore === 'function') {
+            spy.restore()
+        }
+    });
+    testCase.spies = [];
+}
+
 export function getHooks(testCase) {
     return {
         after: maybeFn(testCase.config.after).bind(testCase),
@@ -68,6 +77,12 @@ export function maybeFn(fn) {
 
 export function noop() {
 
+}
+
+export function spy(testCase, ...args) {
+    testCase.spies.push(sinon.spy(...args));
+
+    return testCase.spies[testCase.spies.length - 1];
 }
 
 export function stub(testCase, ...args) {
