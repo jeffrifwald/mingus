@@ -166,6 +166,10 @@ Mingus.createTestCase('createTestCaseTest', {
         this.assertSomeChildIsType(this.rendered, 'li');
     },
 
+    testAssertText() {
+        this.assertText(<span>Cool</span>, 'Cool');
+    },
+
     testGetChildren() {
         this.assertDeepEqual(
             this.getChildren(this.rendered),

@@ -125,6 +125,10 @@ export class TestCase {
         return this.assertTrue(someChildIsType);
     }
 
+    assertText(component, text) {
+        return this.assertEqual(component.props.children, text);
+    }
+
     // Mocha hooks
     after() {
         this.hooks.after();
