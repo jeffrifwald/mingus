@@ -4,24 +4,44 @@ var path = require('path');
 var child_process = require('child_process');
 
 
-var execPath, args, proc;
+function getArgs(args, cover, check) {
+    var argIndex = 0;
+    var argList = [[], [], []];
 
-if (process.argv[2] === 'cover') {
-    execPath = require.resolve('babel/bin/babel-node');
-    args = [].concat([
-        require.resolve('babel-istanbul/lib/cli'),
-        'cover',
-        require.resolve('mocha/bin/_mocha')
-    ], process.argv.slice(3));
-} else if (process.argv[2] === 'check-coverage') {
-    execPath = require.resolve('babel-istanbul/lib/cli');
-    args = [].concat([
-        'check-coverage'
-    ], process.argv.slice(3));
+    args.filter(function(arg, i) {
+        return i !== cover && i !== check;
+    }).slice(2).forEach(function(arg) {
+        if (arg === '--') {
+            argIndex += 1;
+        } else {
+            argList[argIndex].push(arg);
+        }
+    });
+
+    return argList;
 }
 
-if (execPath && args) {
-    proc = child_process.spawn(execPath, args, {stdio: 'inherit'});
+var cover = process.argv.indexOf('cover');
+var check = process.argv.indexOf('check-coverage');
+var args = getArgs(process.argv, cover, check);
+var execArgs, execPath;
+
+if (cover !== -1) {
+    execPath = require.resolve('babel/bin/babel-node');
+    execArgs = [].concat(
+        args[0],
+        [require.resolve('babel-istanbul/lib/cli'), 'cover'],
+        args[1],
+        [require.resolve('mocha/bin/_mocha'), '--'],
+        args[2]
+    );
+} else if (check !== -1) {
+    execPath = require.resolve('babel-istanbul/lib/cli');
+    execArgs = process.argv.slice(2);
+}
+
+if (execPath && execArgs) {
+    proc = child_process.spawn(execPath, execArgs, {stdio: 'inherit'});
     proc.on('exit', function (code, signal) {
         process.on('exit', function() {
             if (signal) {
