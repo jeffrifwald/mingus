@@ -7,7 +7,8 @@ import {
     clearStubs,
     initTests,
     spy,
-    stub
+    stub,
+    throwAssertionError
 } from './helpers';
 
 
@@ -22,43 +23,57 @@ export class TestCase {
 
     // Assertion methods
     assertDeepEqual(...args) {
-        return chai.assert.deepEqual(...args);
+        chai.assert.deepEqual(...args);
     }
 
     assertEqual(...args) {
-        return chai.assert.equal(...args);
+        chai.assert.equal(...args);
     }
 
     assertTrue(...args) {
-        return chai.assert.isTrue(...args);
+        chai.assert.isTrue(...args);
     }
 
     assertFalse(...args) {
-        return chai.assert.isFalse(...args);
+        chai.assert.isFalse(...args);
     }
 
     assertNotNull(...args) {
-        return chai.assert.isNotNull(...args);
+        chai.assert.isNotNull(...args);
     }
 
     assertNull(...args) {
-        return chai.assert.isNull(...args);
+        chai.assert.isNull(...args);
     }
 
     assertTypeOf(...args) {
-        return chai.assert.typeOf(...args);
+        chai.assert.typeOf(...args);
     }
 
     assertUndefined(...args) {
-        return chai.assert.isUndefined(...args);
+        chai.assert.isUndefined(...args);
+    }
+
+    assertInstanceOf(...args) {
+        chai.assert.instanceOf(...args);
+    }
+
+    assertNotInstanceOf(...args) {
+        chai.assert.notInstanceOf(...args);
     }
 
     assertHasClass(component, cls) {
-        return this.assertTrue(this.hasClass(component, cls));
+        throwAssertionError(
+            !this.hasClass(component, cls),
+            `expected component to have class '${cls}'`
+        );
     }
 
     assertIsType(component, type) {
-        return this.assertTrue(this.isType(component, type));
+        throwAssertionError(
+            !this.isType(component, type),
+            `expected component to be type '${type}'`
+        );
     }
 
     assertEveryChildHasClass(component, cls) {
@@ -66,7 +81,10 @@ export class TestCase {
             (child) => this.hasClass(child, cls)
         );
 
-        return this.assertTrue(everyChildHasClass);
+        throwAssertionError(
+            !everyChildHasClass,
+            `expected every child to have class '${cls}'`
+        );
     }
 
     assertEveryChildIsType(component, type) {
@@ -74,23 +92,38 @@ export class TestCase {
             (child) => this.isType(child, type)
         );
 
-        return this.assertTrue(everyChildIsType);
+        throwAssertionError(
+            !everyChildIsType,
+            `expected every child to be type '${type}'`
+        );
     }
 
     assertNthChildHasClass(component, n, cls) {
         const child = this.getChildren(component)[n];
 
-        return this.assertTrue(this.hasClass(child, cls));
+        throwAssertionError(
+            !this.hasClass(child, cls),
+            `expected child ${n} to have class '${cls}'`
+        );
     }
 
     assertNthChildIsType(component, n, type) {
         const child = this.getChildren(component)[n];
 
-        return this.assertTrue(this.isType(child, type));
+        throwAssertionError(
+            !this.isType(child, type),
+            `expected child ${n} to be type '${type}'`
+        );
     }
 
     assertNumChildren(component, num) {
-        return this.getChildren(component).length === num;
+        const numChildren = this.getChildren(component).length;
+
+        throwAssertionError(
+            numChildren !== num,
+            `expected component with ${numChildren} ` +
+            `children to have ${num} children`
+        );
     }
 
     assertNumChildrenOfType(component, num, type) {
@@ -98,7 +131,12 @@ export class TestCase {
             (child) => this.isType(child, type)
         ).length;
 
-        return this.assertEqual(numChildrenOfType, num);
+        throwAssertionError(
+            numChildrenOfType !== num,
+            `expected component with ${numChildrenOfType} children ` +
+            `of type '${type}' ` +
+            `to have ${num} children of type '${type}'`
+        );
     }
 
     assertNumChildrenWithClass(component, num, cls) {
@@ -106,7 +144,12 @@ export class TestCase {
             (child) => this.hasClass(child, cls)
         ).length;
 
-        return this.assertEqual(numChildrenWithClass, num);
+        throwAssertionError(
+            numChildrenWithClass !== num,
+            `expected component with ${numChildrenWithClass} children ` +
+            `with class '${cls}' ` +
+            `to have ${num} children with class '${cls}'`
+        );
     }
 
     assertSomeChildHasClass(component, cls) {
@@ -114,7 +157,10 @@ export class TestCase {
             (child) => this.hasClass(child, cls)
         );
 
-        return this.assertTrue(someChildHasClass);
+        throwAssertionError(
+            !someChildHasClass,
+            `expected component to have some child with class '${cls}'`
+        );
     }
 
     assertSomeChildIsType(component, type) {
@@ -122,11 +168,17 @@ export class TestCase {
             (child) => this.isType(child, type)
         );
 
-        return this.assertTrue(someChildIsType);
+        throwAssertionError(
+            !someChildIsType,
+            `expected component to have some child of type '${type}'`
+        );
     }
 
     assertText(component, text) {
-        return this.assertEqual(component.props.children, text);
+        throwAssertionError(
+            component.props.children !== text,
+            `expected component to have text '${text}'`
+        );
     }
 
     // Mocha hooks
@@ -176,7 +228,7 @@ export class TestCase {
     }
 
     hasClass(component, cls) {
-        return component.props.className.indexOf(cls) >= 0;
+        return component.props.className.split(' ').indexOf(cls) >= 0;
     }
 
     isType(component, type) {

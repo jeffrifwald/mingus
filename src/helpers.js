@@ -1,3 +1,4 @@
+import chai from 'chai';
 import mocha from 'mocha';
 import sinon from 'sinon';
 
@@ -89,4 +90,10 @@ export function stub(testCase, ...args) {
     testCase.stubs.push(sinon.stub(...args));
 
     return testCase.stubs[testCase.stubs.length - 1];
+}
+
+export function throwAssertionError(shouldThrow, msg) {
+    if (shouldThrow) {
+        throw new chai.AssertionError(msg);
+    }
 }

@@ -122,52 +122,204 @@ Mingus.createTestCase('createTestCaseTest', {
         this.assertTrue(caught);
     },
 
+    testAssertInstanceOf() {
+        let caught = false;
+
+        this.assertInstanceOf(this.component, LargeList);
+
+        try {
+            this.assertInstanceOf(this.component, SmallList);
+        } catch(err) {
+            caught = true;
+        }
+
+        this.assertTrue(caught);
+    },
+
+    testAssertNotInstanceOf() {
+        let caught = false;
+
+        this.assertNotInstanceOf(this.component, SmallList);
+
+        try {
+            this.assertNotInstanceOf(this.component, LargeList);
+        } catch(err) {
+            caught = true;
+        }
+
+        this.assertTrue(caught);
+    },
+
     testAssertHasClass() {
+        let caught = false;
+
         this.assertHasClass(this.rendered, 'large-list');
+
+        try {
+            this.assertHasClass(this.rendered, 'large-lists');
+        } catch(err) {
+            caught = true;
+        }
+
+        this.assertTrue(caught);
     },
 
     testAssertIsType() {
+        let caught = false;
+
         this.assertIsType(this.rendered, 'ul');
+
+        try {
+            this.assertIsType(this.rendered, 'li');
+        } catch(err) {
+            caught = true;
+        }
+
+        this.assertTrue(caught);
     },
 
     testAssertEveryChildHasClass() {
+        let caught = false;
+
         this.assertEveryChildHasClass(this.rendered, 'large-list-item');
+
+        try {
+            this.assertEveryChildHasClass(this.rendered, 'small-list-item');
+        } catch(err) {
+            caught = true;
+        }
+
+        this.assertTrue(caught);
     },
 
     testAssertEveryChildIsType() {
+        let caught = false;
+
         this.assertEveryChildIsType(this.rendered, 'li');
+
+        try {
+            this.assertEveryChildIsType(this.rendered, 'ul');
+        } catch(err) {
+            caught = true;
+        }
+
+        this.assertTrue(caught);
     },
 
     testAssertNthChildHasClass() {
+        let caught = false;
+
         this.assertNthChildHasClass(this.rendered, 0, 'large-list-item');
+
+        try {
+            this.assertNthChildHasClass(this.rendered, 0, 'small-list-item');
+        } catch(err) {
+            caught = true;
+        }
+
+        this.assertTrue(caught);
     },
 
     testAssertNthChildIsType() {
+        let caught = false;
+
         this.assertNthChildIsType(this.rendered, 0, 'li');
+
+        try {
+            this.assertNthChildIsType(this.rendered, 0, 'ul');
+        } catch(err) {
+            caught = true;
+        }
+
+        this.assertTrue(caught);
     },
 
     testAssertNumChildren() {
-        this.assertNumChildren(this.rendered, 3);
-    },
+        let caught = false;
 
-    testAssertNumChildrenWithClass() {
-        this.assertNumChildrenWithClass(this.rendered, 3, 'large-list-item');
+        this.assertNumChildren(this.rendered, 3);
+
+        try {
+            this.assertNumChildren(this.rendered, 4);
+        } catch(err) {
+            caught = true;
+        }
+
+        this.assertTrue(caught);
     },
 
     testAssertNumChildrenOfType() {
+        let caught = false;
+
         this.assertNumChildrenOfType(this.rendered, 3, 'li');
+
+        try {
+            this.assertNumChildrenOfType(this.rendered, 4, 'li');
+        } catch(err) {
+            caught = true;
+        }
+
+        this.assertTrue(caught);
+    },
+
+    testAssertNumChildrenWithClass() {
+        let caught = false;
+
+        this.assertNumChildrenWithClass(this.rendered, 3, 'large-list-item');
+
+        try {
+            this.assertNumChildrenWithClass(
+                this.rendered,
+                4,
+                'large-list-item'
+            );
+        } catch(err) {
+            caught = true;
+        }
+
+        this.assertTrue(caught);
     },
 
     testAssertSomeChildHasClass() {
+        let caught = false;
+
         this.assertSomeChildHasClass(this.rendered, 'large-list-item');
+
+        try {
+            this.assertSomeChildHasClass(this.rendered, 'small-list-item');
+        } catch(err) {
+            caught = true;
+        }
+
+        this.assertTrue(caught);
     },
 
     testAssertSomeChildIsType() {
+        let caught = false;
+
         this.assertSomeChildIsType(this.rendered, 'li');
+
+        try {
+            this.assertSomeChildIsType(this.rendered, 'ul');
+        } catch(err) {
+            caught = true;
+        }
+
+        this.assertTrue(caught);
     },
 
     testAssertText() {
+        let caught = false;
+
         this.assertText(<span>Cool</span>, 'Cool');
+
+        try {
+            this.assertText(<span>Cool</span>, 'Uncool');
+        } catch(err) {
+            caught = true;
+        }
+
+        this.assertTrue(caught);
     },
 
     testGetChildren() {

@@ -1,6 +1,6 @@
 {
   "name": "mingus",
-  "version": "0.3.0",
+  "version": "0.3.1",
   "description": "A testing library for React.",
   "main": "index.js",
   "bin": {
@@ -12,7 +12,8 @@
     "cover": "./bin/mingus cover",
     "lint": "eslint src test",
     "prepublish": "npm run build",
-    "test": "npm run lint && npm run cover && npm run check-coverage"
+    "test": "npm run lint && npm run cover && npm run check-coverage",
+    "unit": "./bin/mingus unit"
   },
   "keywords": [
     "test",

@@ -4,12 +4,12 @@ var path = require('path');
 var child_process = require('child_process');
 
 
-function getArgs(args, cover, check) {
+function getArgs(args, cover, check, unit) {
     var argIndex = 0;
     var argList = [[], [], []];
 
     args.filter(function(arg, i) {
-        return i !== cover && i !== check;
+        return i !== cover && i !== check && i !== unit;
     }).slice(2).forEach(function(arg) {
         if (arg === '--') {
             argIndex += 1;
@@ -23,7 +23,8 @@ function getArgs(args, cover, check) {
 
 var cover = process.argv.indexOf('cover');
 var check = process.argv.indexOf('check-coverage');
-var args = getArgs(process.argv, cover, check);
+var unit = process.argv.indexOf('unit');
+var args = getArgs(process.argv, cover, check, unit);
 var execArgs, execPath;
 
 if (cover !== -1) {
@@ -38,6 +39,13 @@ if (cover !== -1) {
 } else if (check !== -1) {
     execPath = require.resolve('babel-istanbul/lib/cli');
     execArgs = process.argv.slice(2);
+} else if (unit !== -1) {
+    execPath = require.resolve('babel/bin/babel-node');
+    execArgs = [].concat(
+        args[0],
+        ['--', require.resolve('mocha/bin/_mocha')],
+        args[1]
+    );
 }
 
 if (execPath && execArgs) {
