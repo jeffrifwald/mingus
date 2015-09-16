@@ -42,56 +42,59 @@ export default CoolComponent;
 
 tests/CoolComponent-test.js:
 ```js
-import {TestCase} from 'mingus';
+import Mingus from 'mingus';
 import someLib from 'someLib';
 
 import CoolComponent from './CoolComponent';
 
 
-class CoolComponentTest extends TestCase {
+Mingus.createTestCase({
     beforeEach() {
         this.rendered = this.renderComponent(CoolComponent);
         this.component = this.createComponent(CoolComponent);
-    }
+    },
 
     testType() {
         this.assertIsType(this.rendered, 'ul')
-    }
+    },
 
     testClass() {
         this.assertHasClass(this.rendered, 'cool-list');
-    }
+    },
 
     testChildrenClasses() {
         this.assertEveryChildHasClass(this.rendered, 'cool-list-item');
         this.assertSomeChildHasClass(this.rendered, 'cool-list-item');
-    }
+    },
 
     testChildrenTypes() {
         this.assertEveryChildIsType(this.rendered, 'li');
         this.assertSomeChildIsType(this.rendered, 'li');
-    }
+    },
 
     testNthChildClass() {
         this.assertNthChildHasClass(this.rendered, 0, 'cool-list-item');
-    }
+    },
 
     testNthChildType() {
         this.assertNthChildIsType(this.rendered, 0, 'li');
-    }
+    },
 
     testGetNum() {
         this.stub(someLib, 'getNum', () => 777);
         this.assertEqual(component.getNum(), 777);
     }
-}
-
-new CoolComponentTest();
+});
 ```
 
 On the command line:
 ```shell
 mingus cover && mingus check-coverage
+```
+
+Without coverage:
+```shell
+mingus unit
 ```
 
 ## License
