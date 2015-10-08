@@ -17,7 +17,7 @@ Mingus.createTestCase('createTestCaseTest', {
 
         try {
             this.assertDeepEqual({a: 1}, {a: 2});
-        } catch(err) {
+        } catch (err) {
             caught = true;
         }
 
@@ -31,7 +31,7 @@ Mingus.createTestCase('createTestCaseTest', {
 
         try {
             this.assertEqual(1, 2);
-        } catch(err) {
+        } catch (err) {
             caught = true;
         }
 
@@ -45,7 +45,7 @@ Mingus.createTestCase('createTestCaseTest', {
 
         try {
             this.assertTrue(false);
-        } catch(err) {
+        } catch (err) {
             caught = true;
         }
 
@@ -59,7 +59,7 @@ Mingus.createTestCase('createTestCaseTest', {
 
         try {
             this.assertFalse(true);
-        } catch(err) {
+        } catch (err) {
             caught = true;
         }
 
@@ -73,7 +73,7 @@ Mingus.createTestCase('createTestCaseTest', {
 
         try {
             this.assertNotNull(null);
-        } catch(err) {
+        } catch (err) {
             caught = true;
         }
 
@@ -87,7 +87,7 @@ Mingus.createTestCase('createTestCaseTest', {
 
         try {
             this.assertNull(1);
-        } catch(err) {
+        } catch (err) {
             caught = true;
         }
 
@@ -101,7 +101,7 @@ Mingus.createTestCase('createTestCaseTest', {
 
         try {
             this.assertTypeOf('', 'number');
-        } catch(err) {
+        } catch (err) {
             caught = true;
         }
 
@@ -115,7 +115,7 @@ Mingus.createTestCase('createTestCaseTest', {
 
         try {
             this.assertUndefined(null);
-        } catch(err) {
+        } catch (err) {
             caught = true;
         }
 
@@ -129,7 +129,7 @@ Mingus.createTestCase('createTestCaseTest', {
 
         try {
             this.assertInstanceOf(this.component, SmallList);
-        } catch(err) {
+        } catch (err) {
             caught = true;
         }
 
@@ -143,7 +143,7 @@ Mingus.createTestCase('createTestCaseTest', {
 
         try {
             this.assertNotInstanceOf(this.component, LargeList);
-        } catch(err) {
+        } catch (err) {
             caught = true;
         }
 
@@ -157,7 +157,7 @@ Mingus.createTestCase('createTestCaseTest', {
 
         try {
             this.assertHasClass(this.rendered, 'large-lists');
-        } catch(err) {
+        } catch (err) {
             caught = true;
         }
 
@@ -171,7 +171,7 @@ Mingus.createTestCase('createTestCaseTest', {
 
         try {
             this.assertIsType(this.rendered, 'li');
-        } catch(err) {
+        } catch (err) {
             caught = true;
         }
 
@@ -185,7 +185,7 @@ Mingus.createTestCase('createTestCaseTest', {
 
         try {
             this.assertEveryChildHasClass(this.rendered, 'small-list-item');
-        } catch(err) {
+        } catch (err) {
             caught = true;
         }
 
@@ -199,7 +199,7 @@ Mingus.createTestCase('createTestCaseTest', {
 
         try {
             this.assertEveryChildIsType(this.rendered, 'ul');
-        } catch(err) {
+        } catch (err) {
             caught = true;
         }
 
@@ -213,7 +213,7 @@ Mingus.createTestCase('createTestCaseTest', {
 
         try {
             this.assertNthChildHasClass(this.rendered, 0, 'small-list-item');
-        } catch(err) {
+        } catch (err) {
             caught = true;
         }
 
@@ -227,7 +227,7 @@ Mingus.createTestCase('createTestCaseTest', {
 
         try {
             this.assertNthChildIsType(this.rendered, 0, 'ul');
-        } catch(err) {
+        } catch (err) {
             caught = true;
         }
 
@@ -241,7 +241,7 @@ Mingus.createTestCase('createTestCaseTest', {
 
         try {
             this.assertNumChildren(this.rendered, 4);
-        } catch(err) {
+        } catch (err) {
             caught = true;
         }
 
@@ -255,7 +255,7 @@ Mingus.createTestCase('createTestCaseTest', {
 
         try {
             this.assertNumChildrenOfType(this.rendered, 4, 'li');
-        } catch(err) {
+        } catch (err) {
             caught = true;
         }
 
@@ -273,7 +273,7 @@ Mingus.createTestCase('createTestCaseTest', {
                 4,
                 'large-list-item'
             );
-        } catch(err) {
+        } catch (err) {
             caught = true;
         }
 
@@ -287,7 +287,7 @@ Mingus.createTestCase('createTestCaseTest', {
 
         try {
             this.assertSomeChildHasClass(this.rendered, 'small-list-item');
-        } catch(err) {
+        } catch (err) {
             caught = true;
         }
 
@@ -301,7 +301,7 @@ Mingus.createTestCase('createTestCaseTest', {
 
         try {
             this.assertSomeChildIsType(this.rendered, 'ul');
-        } catch(err) {
+        } catch (err) {
             caught = true;
         }
 
@@ -315,7 +315,7 @@ Mingus.createTestCase('createTestCaseTest', {
 
         try {
             this.assertText(<span>Cool</span>, 'Uncool');
-        } catch(err) {
+        } catch (err) {
             caught = true;
         }
 
@@ -401,5 +401,5 @@ Mingus.createTestCase('createTestCaseTest', {
     }
 });
 
-// Make sure things don't break when creating with an empty config
+//make sure things don't break when creating with an empty config
 Mingus.createTestCase();

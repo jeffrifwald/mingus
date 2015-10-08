@@ -21,7 +21,7 @@ export class TestCase {
         this.hooks = getHooks(this);
     }
 
-    // Assertion methods
+    //assertion methods
     assertDeepEqual(...args) {
         chai.assert.deepEqual(...args);
     }
@@ -181,7 +181,7 @@ export class TestCase {
         );
     }
 
-    // Mocha hooks
+    //mocha hooks
     after() {
         this.hooks.after();
     }
@@ -200,7 +200,7 @@ export class TestCase {
         this.hooks.beforeEach();
     }
 
-    // React helpers
+    //react helpers
     createComponent(component, props) {
         const Component = component;
         const cls = (
@@ -220,11 +220,13 @@ export class TestCase {
 
         if (children && children.length) {
             return children;
-        } else if (children && !children.length) {
-            return [children];
-        } else {
-            return [];
         }
+
+        if (children && !children.length) {
+            return [children];
+        }
+
+        return [];
     }
 
     hasClass(component, cls) {
@@ -239,7 +241,7 @@ export class TestCase {
         return this.createComponent(...args).render();
     }
 
-    // Mock helpers
+    //mock helpers
     spy(...args) {
         return spy(this, ...args);
     }
@@ -253,4 +255,4 @@ export default {
     createTestCase(name, config) {
         initTests(new TestCase(name, config));
     }
-}
+};

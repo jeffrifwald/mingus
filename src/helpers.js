@@ -3,6 +3,18 @@ import mocha from 'mocha';
 import sinon from 'sinon';
 
 
+export function noop() {
+
+}
+
+export function maybeFn(fn) {
+    return fn && typeof fn === 'function' ? fn : noop;
+}
+
+export function isTestMethod(key, testCase) {
+    return key.slice(0, 4) === 'test' && typeof testCase[key] === 'function';
+}
+
 export function addAfter(testCase) {
     mocha.after(() => testCase.after());
 }
@@ -19,6 +31,14 @@ export function addBeforeEach(testCase) {
     mocha.beforeEach(() => testCase.beforeEach());
 }
 
+export function addIt(testCase) {
+    Object.keys(testCase.config).filter(
+        (key) => isTestMethod(key, testCase.config)
+    ).forEach(
+        (key) => mocha.it(key, testCase.config[key].bind(testCase))
+    );
+}
+
 export function addDescribe(testCase) {
     mocha.describe(testCase.name, () => {
         addAfter(testCase);
@@ -29,29 +49,19 @@ export function addDescribe(testCase) {
     });
 }
 
-export function addIt(testCase) {
-    Object.keys(testCase.config).filter(
-        (key) => isTestMethod(key, testCase.config)
-    ).forEach(
-        (key) => mocha.it(key, testCase.config[key].bind(testCase))
-    );
+export function restoreAll(obj) {
+    if (obj.restore && typeof obj.restore === 'function') {
+        obj.restore();
+    }
 }
 
 export function clearStubs(testCase) {
-    testCase.stubs.forEach((stub) => {
-        if (stub.restore && typeof stub.restore === 'function') {
-            stub.restore()
-        }
-    });
+    testCase.stubs.forEach(restoreAll);
     testCase.stubs = [];
 }
 
 export function clearSpies(testCase) {
-    testCase.spies.forEach((spy) => {
-        if (spy.restore && typeof spy.restore === 'function') {
-            spy.restore()
-        }
-    });
+    testCase.spies.forEach(restoreAll);
     testCase.spies = [];
 }
 
@@ -66,18 +76,6 @@ export function getHooks(testCase) {
 
 export function initTests(testCase) {
     addDescribe(testCase);
-}
-
-export function isTestMethod(key, testCase) {
-    return key.slice(0, 4) === 'test' && typeof testCase[key] === 'function';
-}
-
-export function maybeFn(fn) {
-    return fn && typeof fn === 'function' ? fn : noop;
-}
-
-export function noop() {
-
 }
 
 export function spy(testCase, ...args) {
