@@ -1,8 +1,12 @@
+import path from 'path';
+
 import chai from 'chai';
 import mocha from 'mocha';
 import proxyquire from 'proxyquire';
 import sinon from 'sinon';
 
+
+proxyquire.noPreserveCache();
 
 export function noop() {
 
@@ -71,10 +75,6 @@ export function clearSpies(testCase) {
     testCase.spies = [];
 }
 
-export function fakeRequire(...args) {
-    return proxyquire(...args);
-}
-
 export function getHooks(testCase) {
     return {
         after: maybeFn(testCase.config.after).bind(testCase),
@@ -82,6 +82,18 @@ export function getHooks(testCase) {
         before: maybeFn(testCase.config.before).bind(testCase),
         beforeEach: maybeFn(testCase.config.beforeEach).bind(testCase)
     };
+}
+
+export function getModulePath(mod) {
+    return (
+        mod[0] === '.' ?
+        path.resolve(module.parent.id, '..', mod) :
+        mod
+    );
+}
+
+export function fakeRequire(mod, ...args) {
+    return proxyquire(getModulePath(mod), ...args);
 }
 
 export function initTests(testCase) {

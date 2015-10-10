@@ -4,6 +4,14 @@ import {EmptyList, LargeList, SmallList} from './Components';
 import Mingus from '../src/mingus';
 
 
+const utils = Mingus.require('./utils', {
+    path: {
+        resolve() {
+            return 'mock path';
+        }
+    }
+});
+
 Mingus.createTestCase('createTestCaseTest', {
     before() {
         this.component = this.createComponent(<LargeList />);
@@ -413,14 +421,6 @@ Mingus.createTestCase('createTestCaseTest', {
     },
 
     testRequire() {
-        const utils = this.require('./utils', {
-            path: {
-                resolve() {
-                    return 'mock path';
-                }
-            }
-        });
-
         this.assertEqual(utils.getPath(), 'mock path');
     }
 });

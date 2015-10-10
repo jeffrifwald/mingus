@@ -1,5 +1,3 @@
-import path from 'path';
-
 import chai from 'chai';
 import React from 'react';
 
@@ -260,20 +258,14 @@ export class TestCase {
     patch(...args) {
         return patch(this, ...args);
     }
-
-    require(mod, ...args) {
-        const modPath = (
-            mod[0] === '.' || mod[0] === '/' ?
-            path.resolve(module.parent.id, '..', mod) :
-            mod
-        );
-
-        return fakeRequire(modPath, ...args);
-    }
 }
 
 export default {
     createTestCase(name, config) {
         initTests(new TestCase(name, config));
+    },
+
+    require(mod, ...args) {
+        return fakeRequire(mod, ...args);
     }
 };
