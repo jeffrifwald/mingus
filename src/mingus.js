@@ -1,3 +1,5 @@
+import path from 'path';
+
 import chai from 'chai';
 import React from 'react';
 
@@ -5,6 +7,7 @@ import {
     clearPatches,
     clearSpies,
     clearStubs,
+    fakeRequire,
     getHooks,
     initTests,
     patch,
@@ -256,6 +259,16 @@ export class TestCase {
 
     patch(...args) {
         return patch(this, ...args);
+    }
+
+    require(mod, ...args) {
+        const modPath = (
+            mod[0] === '.' || mod[0] === '/' ?
+            path.resolve(module.parent.id, '..', mod) :
+            mod
+        );
+
+        return fakeRequire(modPath, ...args);
     }
 }
 

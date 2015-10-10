@@ -1,5 +1,6 @@
 import chai from 'chai';
 import mocha from 'mocha';
+import proxyquire from 'proxyquire';
 import sinon from 'sinon';
 
 
@@ -68,6 +69,10 @@ export function clearStubs(testCase) {
 export function clearSpies(testCase) {
     testCase.spies.forEach(restoreAll);
     testCase.spies = [];
+}
+
+export function fakeRequire(...args) {
+    return proxyquire(...args);
 }
 
 export function getHooks(testCase) {

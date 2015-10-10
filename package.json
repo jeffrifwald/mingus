@@ -1,7 +1,14 @@
 {
   "name": "mingus",
   "version": "0.5.0",
-  "description": "A testing library for React.",
+  "description": "A testing library for React/Babel.",
+  "repository": {
+    "type": "git",
+    "url": "git://github.com/jmcriffey/mingus.git"
+  },
+  "bugs": {
+    "url": "https://github.com/jmcriffey/mingus/issues"
+  },
   "main": "index.js",
   "bin": {
     "mingus": "bin/mingus"
@@ -30,6 +37,7 @@
     "babel-runtime": "^5.8.25",
     "chai": "^3.3.0",
     "mocha": "^2.3.3",
+    "proxyquire": "^1.7.3",
     "react": "^0.14.0",
     "sinon": "^1.17.1"
   },

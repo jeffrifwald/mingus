@@ -410,6 +410,18 @@ Mingus.createTestCase('createTestCaseTest', {
             this.createComponent(LargeList),
             this.createComponent(<LargeList />)
         );
+    },
+
+    testRequire() {
+        const utils = this.require('./utils', {
+            path: {
+                resolve() {
+                    return 'mock path';
+                }
+            }
+        });
+
+        this.assertEqual(utils.getPath(), 'mock path');
     }
 });
 
