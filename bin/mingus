@@ -42,9 +42,8 @@ if (cover !== -1) {
 } else if (unit !== -1) {
     execPath = require.resolve('babel/bin/babel-node');
     execArgs = [].concat(
-        args[0],
-        ['--', require.resolve('mocha/bin/_mocha')],
-        args[1]
+        [require.resolve('mocha/bin/_mocha')],
+        args[0]
     );
 }
 
