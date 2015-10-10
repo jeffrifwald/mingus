@@ -2,10 +2,12 @@ import chai from 'chai';
 import React from 'react';
 
 import {
-    getHooks,
+    clearPatches,
     clearSpies,
     clearStubs,
+    getHooks,
     initTests,
+    patch,
     spy,
     stub,
     throwAssertionError
@@ -14,6 +16,7 @@ import {
 
 export class TestCase {
     constructor(name={}, config={}) {
+        this.patches = [];
         this.spies = [];
         this.stubs = [];
         this.name = name;
@@ -188,6 +191,7 @@ export class TestCase {
 
     afterEach() {
         this.hooks.afterEach();
+        clearPatches(this);
         clearSpies(this);
         clearStubs(this);
     }
@@ -248,6 +252,10 @@ export class TestCase {
 
     stub(...args) {
         return stub(this, ...args);
+    }
+
+    patch(...args) {
+        return patch(this, ...args);
     }
 }
 

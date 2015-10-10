@@ -55,6 +55,11 @@ export function restoreAll(obj) {
     }
 }
 
+export function clearPatches(testCase) {
+    testCase.patches.forEach(restoreAll);
+    testCase.patches = [];
+}
+
 export function clearStubs(testCase) {
     testCase.stubs.forEach(restoreAll);
     testCase.stubs = [];
@@ -76,6 +81,20 @@ export function getHooks(testCase) {
 
 export function initTests(testCase) {
     addDescribe(testCase);
+}
+
+export function patch(testCase, obj, key, patched) {
+    const original = obj[key];
+
+    obj[key] = patched;
+
+    testCase.patches.push({
+        restore() {
+            obj[key] = original;
+        }
+    });
+
+    return testCase.patches[testCase.patches.length - 1];
 }
 
 export function spy(testCase, ...args) {

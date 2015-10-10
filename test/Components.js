@@ -27,6 +27,7 @@ export class LargeList extends React.Component {
         super(...args);
 
         this.getNameCalled = 0;
+        this.config = {large: true};
     }
 
     render() {

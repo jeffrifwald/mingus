@@ -393,6 +393,18 @@ Mingus.createTestCase('createTestCaseTest', {
         this.assertEqual(stub.callCount, 1);
     },
 
+    testPatch() {
+        const patched = {large: false};
+
+        this.patch(this.component, 'config', patched);
+        this.assertEqual(this.component.config, patched);
+        this.assertFalse(this.component.config.large);
+    },
+
+    testPatchReset() {
+        this.assertTrue(this.component.config.large);
+    },
+
     testCreateComponent() {
         this.assertDeepEqual(
             this.createComponent(LargeList),
