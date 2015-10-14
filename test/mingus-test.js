@@ -158,6 +158,38 @@ Mingus.createTestCase('createTestCaseTest', {
         this.assertTrue(caught);
     },
 
+    testAssertCallCount() {
+        let caught = false;
+        const fn = this.stub();
+
+        fn();
+        this.assertCallCount(fn, 1);
+
+        try {
+            this.assertCallCount(fn, 2);
+        } catch (err) {
+            caught = true;
+        }
+
+        this.assertTrue(caught);
+    },
+
+    testAssertCalledWith() {
+        let caught = false;
+        const fn = this.stub();
+
+        fn('called', 'cool');
+        this.assertCalledWith(fn, 'called', 'cool');
+
+        try {
+            this.assertCalledWith(fn, 'called', 'uncool');
+        } catch (err) {
+            caught = true;
+        }
+
+        this.assertTrue(caught);
+    },
+
     testAssertHasClass() {
         let caught = false;
 

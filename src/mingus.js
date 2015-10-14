@@ -66,6 +66,20 @@ export class TestCase {
         chai.assert.notInstanceOf(...args);
     }
 
+    assertCallCount(fn, n) {
+        throwAssertionError(
+            fn.callCount !== n,
+            `expected call count to be ${n}, but was ${fn.callCount}`
+        );
+    }
+
+    assertCalledWith(fn, ...args) {
+        throwAssertionError(
+            !fn.calledWith(...args),
+            `expected to be called with ${JSON.stringify(args)}`
+        );
+    }
+
     assertHasClass(component, cls) {
         throwAssertionError(
             !this.hasClass(component, cls),
