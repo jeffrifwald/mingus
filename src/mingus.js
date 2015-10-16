@@ -15,6 +15,8 @@ import {
 } from './helpers';
 
 
+const Mingus = {};
+
 export class TestCase {
     constructor(name={}, config={}) {
         this.patches = [];
@@ -23,47 +25,6 @@ export class TestCase {
         this.name = name;
         this.config = config;
         this.hooks = getHooks(this);
-    }
-
-    //assertion methods
-    assertDeepEqual(...args) {
-        chai.assert.deepEqual(...args);
-    }
-
-    assertEqual(...args) {
-        chai.assert.equal(...args);
-    }
-
-    assertTrue(...args) {
-        chai.assert.isTrue(...args);
-    }
-
-    assertFalse(...args) {
-        chai.assert.isFalse(...args);
-    }
-
-    assertNotNull(...args) {
-        chai.assert.isNotNull(...args);
-    }
-
-    assertNull(...args) {
-        chai.assert.isNull(...args);
-    }
-
-    assertTypeOf(...args) {
-        chai.assert.typeOf(...args);
-    }
-
-    assertUndefined(...args) {
-        chai.assert.isUndefined(...args);
-    }
-
-    assertInstanceOf(...args) {
-        chai.assert.instanceOf(...args);
-    }
-
-    assertNotInstanceOf(...args) {
-        chai.assert.notInstanceOf(...args);
     }
 
     assertCallCount(fn, n) {
@@ -272,14 +233,21 @@ export class TestCase {
     patch(...args) {
         return patch(this, ...args);
     }
+
+    require(...args) {
+        return Mingus.require(...args);
+    }
 }
 
-export default {
-    createTestCase(name, config) {
-        initTests(new TestCase(name, config));
-    },
+//add chai assertions to TestCase
+Object.keys(chai.assert).forEach((chaiKey) => {
+    const updatedKey = chaiKey.slice(0, 2) === 'is' ? chaiKey.slice(2) : chaiKey;
+    const mingusKey = `assert${updatedKey[0].toUpperCase()}${updatedKey.slice(1)}`;
 
-    require(mod, ...args) {
-        return fakeRequire(mod, ...args);
-    }
-};
+    TestCase.prototype[mingusKey] = chai.assert[chaiKey];
+});
+
+Mingus.createTestCase = (name, config) => initTests(new TestCase(name, config));
+Mingus.require = (...args) => fakeRequire(...args);
+
+export default Mingus;
