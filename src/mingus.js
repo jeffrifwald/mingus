@@ -41,6 +41,13 @@ export class TestCase {
         );
     }
 
+    assertCalledOnceWith(fn, ...args) {
+        throwAssertionError(
+            fn.callCount !== 1 || !fn.calledWith(...args),
+            `expected to be called once with ${JSON.stringify(args)}`
+        );
+    }
+
     assertHasClass(component, cls) {
         throwAssertionError(
             !this.hasClass(component, cls),
