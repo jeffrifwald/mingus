@@ -1,6 +1,6 @@
 {
   "name": "mingus",
-  "version": "0.7.2",
+  "version": "0.7.3",
   "description": "A testing library for React/Babel.",
   "repository": {
     "type": "git",
