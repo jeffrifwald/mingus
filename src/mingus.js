@@ -1,5 +1,4 @@
 import chai from 'chai';
-import mocha from 'mocha';
 import React from 'react';
 
 import {
@@ -9,6 +8,7 @@ import {
     fakeRequire,
     getHooks,
     initTests,
+    noop,
     patch,
     spy,
     stub,
@@ -17,14 +17,15 @@ import {
 
 
 const Mingus = {
-    after: mocha.after,
-    afterEach: mocha.afterEach,
-    before: mocha.before,
-    beforeEach: mocha.beforeEach
+    after: noop,
+    afterEach: noop,
+    before: noop,
+    beforeEach: noop
 };
 
 export class TestCase {
     constructor(name={}, config={}) {
+        this.Mingus = Mingus;
         this.patches = [];
         this.spies = [];
         this.stubs = [];
