@@ -21,30 +21,30 @@ export function isTestMethod(key, testCase) {
 }
 
 export function addAfter(testCase) {
-    mocha.after(() => {
-        testCase.Mingus.after();
-        testCase.after();
+    mocha.after((...args) => {
+        testCase.Mingus.after(...args);
+        testCase.after(...args);
     });
 }
 
 export function addAfterEach(testCase) {
-    mocha.afterEach(() => {
-        testCase.Mingus.afterEach();
-        testCase.afterEach();
+    mocha.afterEach((...args) => {
+        testCase.Mingus.afterEach(...args);
+        testCase.afterEach(...args);
     });
 }
 
 export function addBefore(testCase) {
-    mocha.before(() => {
-        testCase.Mingus.before();
-        testCase.before();
+    mocha.before((...args) => {
+        testCase.Mingus.before(...args);
+        testCase.before(...args);
     });
 }
 
 export function addBeforeEach(testCase) {
-    mocha.beforeEach(() => {
-        testCase.Mingus.beforeEach();
-        testCase.beforeEach();
+    mocha.beforeEach((...args) => {
+        testCase.Mingus.beforeEach(...args);
+        testCase.beforeEach(...args);
     });
 }
 
