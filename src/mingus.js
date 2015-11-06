@@ -1,4 +1,5 @@
 import chai from 'chai';
+import mocha from 'mocha';
 import React from 'react';
 
 import {
@@ -15,7 +16,12 @@ import {
 } from './helpers';
 
 
-const Mingus = {};
+const Mingus = {
+    after: mocha.after,
+    afterEach: mocha.afterEach,
+    before: mocha.before,
+    beforeEach: mocha.beforeEach
+};
 
 export class TestCase {
     constructor(name={}, config={}) {
