@@ -21,7 +21,6 @@ const Mingus = {
     afterEach: mocha.afterEach,
     before: mocha.before,
     beforeEach: mocha.beforeEach,
-    describe: mocha.describe,
     it: mocha.it
 };
 

@@ -1,6 +1,7 @@
 import path from 'path';
 
 import chai from 'chai';
+import mocha from 'mocha';
 import proxyquire from 'proxyquire';
 import sinon from 'sinon';
 
@@ -44,7 +45,7 @@ export function addIt(testCase) {
 }
 
 export function addDescribe(testCase) {
-    testCase.Mingus.describe(testCase.name, () => {
+    mocha.describe(testCase.name, () => {
         addAfter(testCase);
         addAfterEach(testCase);
         addBefore(testCase);
