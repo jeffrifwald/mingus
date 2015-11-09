@@ -1,7 +1,6 @@
 import path from 'path';
 
 import chai from 'chai';
-import mocha from 'mocha';
 import proxyquire from 'proxyquire';
 import sinon from 'sinon';
 
@@ -21,35 +20,31 @@ export function isTestMethod(key, testCase) {
 }
 
 export function addAfter(testCase) {
-    mocha.after(testCase.Mingus.after.bind(testCase));
-    mocha.after(testCase.after.bind(testCase));
+    testCase.Mingus.after(testCase.after.bind(testCase));
 }
 
 export function addAfterEach(testCase) {
-    mocha.afterEach(testCase.Mingus.afterEach.bind(testCase));
-    mocha.afterEach(testCase.afterEach.bind(testCase));
+    testCase.Mingus.afterEach(testCase.afterEach.bind(testCase));
 }
 
 export function addBefore(testCase) {
-    mocha.before(testCase.Mingus.before.bind(testCase));
-    mocha.before(testCase.before.bind(testCase));
+    testCase.Mingus.before(testCase.before.bind(testCase));
 }
 
 export function addBeforeEach(testCase) {
-    mocha.beforeEach(testCase.Mingus.beforeEach.bind(testCase));
-    mocha.beforeEach(testCase.beforeEach.bind(testCase));
+    testCase.Mingus.beforeEach(testCase.beforeEach.bind(testCase));
 }
 
 export function addIt(testCase) {
     Object.keys(testCase.config).filter(
         (key) => isTestMethod(key, testCase.config)
     ).forEach(
-        (key) => mocha.it(key, testCase.config[key].bind(testCase))
+        (key) => testCase.Mingus.it(key, testCase.config[key].bind(testCase))
     );
 }
 
 export function addDescribe(testCase) {
-    mocha.describe(testCase.name, () => {
+    testCase.Mingus.describe(testCase.name, () => {
         addAfter(testCase);
         addAfterEach(testCase);
         addBefore(testCase);
