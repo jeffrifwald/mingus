@@ -28,7 +28,7 @@ var args = getArgs(process.argv, cover, check, unit);
 var execArgs, execPath;
 
 if (cover !== -1) {
-    execPath = require.resolve('babel/bin/babel-node');
+    execPath = require.resolve('babel-cli/bin/babel-node');
     execArgs = [].concat(
         args[0],
         [require.resolve('babel-istanbul/lib/cli'), 'cover'],
@@ -40,7 +40,7 @@ if (cover !== -1) {
     execPath = require.resolve('babel-istanbul/lib/cli');
     execArgs = process.argv.slice(2);
 } else if (unit !== -1) {
-    execPath = require.resolve('babel/bin/babel-node');
+    execPath = require.resolve('babel-cli/bin/babel-node');
     execArgs = [].concat(
         [require.resolve('mocha/bin/_mocha')],
         args[0]

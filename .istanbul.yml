@@ -6,7 +6,6 @@ check:
         statements: 100
 instrumentation:
     root: src
-    use-babel-runtime: true
 reporting:
     reports:
         - html

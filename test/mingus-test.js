@@ -478,7 +478,7 @@ Mingus.createTestCase('createTestCaseTest', {
             }
         });
 
-        this.assertEqual(utils.getPath(), 'mock path');
+        this.assertEqual(utils.default.getPath(), 'mock path');
     },
 
     testRequireInstance() {
