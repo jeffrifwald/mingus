@@ -1,6 +1,6 @@
 {
   "name": "mingus",
-  "version": "0.8.3",
+  "version": "0.8.4",
   "description": "A testing library for React/Babel.",
   "repository": {
     "type": "git",
@@ -35,7 +35,7 @@
     "babel": "^6.0.15",
     "babel-cli": "^6.1.2",
     "babel-core": "^6.1.2",
-    "babel-istanbul": "^0.5.8",
+    "babel-istanbul": "^0.5.9",
     "babel-preset-es2015": "^6.1.2",
     "babel-preset-react": "^6.1.2",
     "babel-runtime": "^6.0.14",
