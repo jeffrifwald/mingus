@@ -233,7 +233,13 @@ export class TestCase {
     }
 
     renderComponent(...args) {
-        return this.createComponent(...args).render();
+        const component = this.createComponent(...args);
+
+        if (typeof component.render === 'function') {
+            return component.render();
+        }
+
+        return component;
     }
 
     //mock helpers

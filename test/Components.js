@@ -68,3 +68,11 @@ export class SmallList extends React.Component {
         return 'Small';
     }
 }
+
+export const SmallListStateless = () => {
+    return (
+        <ul className="small-list">
+            <li className="small-list-item">1</li>
+        </ul>
+    );
+};

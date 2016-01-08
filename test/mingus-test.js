@@ -1,6 +1,6 @@
 import React from 'react';
 
-import {EmptyList, LargeList, SmallList} from './Components';
+import {EmptyList, LargeList, SmallList, SmallListStateless} from './Components';
 import Mingus from '../src/mingus';
 
 
@@ -394,6 +394,15 @@ Mingus.createTestCase('createTestCaseTest', {
 
     testGetChildrenOneChild() {
         const rendered = this.renderComponent(<SmallList />);
+
+        this.assertDeepEqual(
+            this.getChildren(rendered),
+            [rendered.props.children]
+        );
+    },
+
+    testGetChildrenOneChildStateless() {
+        const rendered = this.renderComponent(<SmallListStateless />);
 
         this.assertDeepEqual(
             this.getChildren(rendered),
