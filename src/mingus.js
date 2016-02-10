@@ -1,15 +1,16 @@
 import chai from 'chai';
 import mocha from 'mocha';
-import React from 'react';
 
 import {
     clearPatches,
     clearSpies,
     clearStubs,
+    createComponent,
     fakeRequire,
     getHooks,
     initTests,
     patch,
+    renderComponent,
     spy,
     stub,
     throwAssertionError
@@ -196,18 +197,8 @@ export class TestCase {
     }
 
     //react helpers
-    createComponent(component, props) {
-        const Component = component;
-        const cls = (
-            Component.type ?
-            Component :
-            React.createElement(Component, props)
-        );
-
-        return new cls.type(
-            cls.props,
-            cls._context //eslint-disable-line
-        );
+    createComponent(...args) {
+        return createComponent(...args);
     }
 
     getChildren(component) {
@@ -233,13 +224,7 @@ export class TestCase {
     }
 
     renderComponent(...args) {
-        const component = this.createComponent(...args);
-
-        if (typeof component.render === 'function') {
-            return component.render();
-        }
-
-        return component;
+        return renderComponent(...args);
     }
 
     //mock helpers
@@ -270,5 +255,7 @@ Object.keys(chai.assert).forEach((chaiKey) => {
 
 Mingus.createTestCase = (name, config) => initTests(new TestCase(name, config));
 Mingus.require = (...args) => fakeRequire(...args);
+Mingus.createComponent = createComponent;
+Mingus.renderComponent = renderComponent;
 
 export default Mingus;

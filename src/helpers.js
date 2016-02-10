@@ -3,10 +3,35 @@ import path from 'path';
 import chai from 'chai';
 import mocha from 'mocha';
 import proxyquire from 'proxyquire';
+import React from 'react';
 import sinon from 'sinon';
 
 
 proxyquire.noPreserveCache();
+
+export function createComponent(component, props) {
+    const Component = component;
+    const cls = (
+        Component.type ?
+        Component :
+        React.createElement(Component, props)
+    );
+
+    return new cls.type(
+        cls.props,
+        cls._context //eslint-disable-line
+    );
+}
+
+export function renderComponent(...args) {
+    const component = createComponent(...args);
+
+    if (typeof component.render === 'function') {
+        return component.render();
+    }
+
+    return component;
+}
 
 export function noop() {
 
